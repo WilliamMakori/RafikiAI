@@ -19,8 +19,8 @@ struct ContentView: View {
             ScrollView{
                 // Why do we use the slash .self, why not just self.
                 ForEach(messages, id: \.self) {text in
-                    if text.contains("[USER]") {
-                        let newText = text.replacingOccurrences(of: "[USER]", with: "") // Replace the user string with an empty string
+                    if text.contains("USER") {
+                        let newText = text.replacingOccurrences(of: "USER", with: "") // Replace the user string with an empty string
                         
                         HStack{
                             Spacer() // Push the message box all the way to the right of the screen
@@ -81,7 +81,7 @@ struct ContentView: View {
         // should send the message to the rafiki response func and get a message back that will be displayed on the screen.
         
         withAnimation{
-            messages.append("[USER]" + message)
+            messages.append("USER" + message)
             self.messageText = ""
         }
         // Dispatch queues SwiftUI
