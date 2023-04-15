@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+// What happens when you run the app on your phone. do the files get saved on the device and then get ran through there? What is the process.
 
 struct ContentView: View {
     @State var messageText:String = ""
@@ -28,9 +29,11 @@ struct ContentView: View {
                                 .padding()
                                 .foregroundColor(.white)
                                 .background(Color.blue.opacity(0.8))
-                                .padding(.horizontal,16)
-                                .padding(.bottom,10)
+//                                .padding(.horizontal,12)
+//                                .padding(.bottom,10)
                                 .shadow(radius: 10)
+                                .cornerRadius(10)
+                                .padding(.horizontal,16)
                             
                         }
                         
@@ -41,9 +44,10 @@ struct ContentView: View {
                                 .padding()
                                 .foregroundColor(.black)
                                 .background(Color.white.opacity(0.8))
-                                .padding(.horizontal,16)
-                                .padding(.bottom,10)
                                 .shadow(radius: 10)
+                                .cornerRadius(10)
+                                .padding(.horizontal,16)
+                            // what does padding actually do, and why does it make it impossible to add rounded egded corners.
                             Spacer()
                         }
                     }
