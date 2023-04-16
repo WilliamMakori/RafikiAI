@@ -7,11 +7,14 @@
 
 import SwiftUI
 // What happens when you run the app on your phone. do the files get saved on the device and then get ran through there? What is the process.
+import Combine
 
 struct ContentView: View {
     @State var messageText:String = ""
     @State var messages: [String] = ["Welcome to RafikiAI, how may I assist you?"]
-    
+    @State var chatMessages: [ChatMessage] = []
+    let openAIService = OpenAIService()
+    @State var cancellables = Set<AnyCancellable>()
     var body: some View {
         VStack{
             Text("RafikiAI")
@@ -19,88 +22,101 @@ struct ContentView: View {
                 .bold()
             ScrollView{
                 // Why do we use the slash .self, why not just self.
-                ForEach(messages, id: \.self) {text in
-                    if text.contains("USER") {
-                        let newText = text.replacingOccurrences(of: "USER", with: "") // Replace the user string with an empty string
-                        
-                        HStack{
-                            Spacer() // Push the message box all the way to the right of the screen
-                            Text(newText)
-                                .padding()
-                                .foregroundColor(.white)
-                                .background(Color.blue.opacity(0.8))
-//                                .padding(.horizontal,12)
-//                                .padding(.bottom,10)
-                                .shadow(radius: 10)
-                                .cornerRadius(10)
-                                .padding(.horizontal,16)
-                            
-                        }
-                        
-                    }
-                    else {
-                        HStack{
-                            Text(text)
-                                .padding()
-                                .foregroundColor(.black)
-                                .background(Color.white.opacity(0.8))
-                                .shadow(radius: 10)
-                                .cornerRadius(10)
-                                .padding(.horizontal,16)
-                            // what does padding actually do, and why does it make it impossible to add rounded egded corners.
-                            Spacer()
-                        }
-                    }
-                    // Rotation effect read on it.
-                    
-                }.rotationEffect(.degrees(180))
-            }.rotationEffect(.degrees(180))
+                ForEach(chatMessages, id: \.self) { message in
+                    // Use the new data structure.
+                    viewMessage(chatMessage: message)
+                }.rotationEffect(Angle(degrees: 180))
+               
+            }.rotationEffect(Angle(degrees: 180))
+           
             HStack(spacing:2){
                 TextField("Type your message...",text: $messageText )
+                {
+                    // On commit enclosure.
+                    sendChatMessage(message: messageText)
+                    
+                }
                     .frame(width: UIScreen.main.bounds.width*0.75, height:UIScreen.main.bounds.height*0.06)
                     .background(Color.gray.opacity(0.11))
                     .padding()
                     .cornerRadius(20)
-                    .onSubmit{
-                        // What happens when you submit the question through the
-                        sendMessage(message: messageText)
-                    }
                 Button {
-                    // This should submit the question that we asked and return an answer that will be displayed on the screen.
-                    sendMessage(message: messageText)
+                 
+                    if !messageText.isEmpty {
+                        sendChatMessage(message: messageText)
+                    }
                   
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .font(.largeTitle)
-                    
                 }
                 
 
             }
+        }.padding()
+          
+    }
+   
+   // Add a drag gesture to remove the keyboard after you're done typing.
+    
+    func sendChatMessage(message: String) {
+        let myMessage = ChatMessage(id: UUID().uuidString,content: messageText,dateCreated: Date(), sender: .me)
+        chatMessages.append(myMessage)
+        openAIService.sendChatMessage(message: messageText).sink { completion in
+            // Handle error
+        }receiveValue: { response in
+            guard let textResponse = response.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines.union(.init(charactersIn:"\""))) else { return }
+            let gptMessage = ChatMessage(id: response.id, content: textResponse, dateCreated: Date(), sender: .gpt)
+            chatMessages.append(gptMessage)
+        }
+        .store(in: &cancellables)
+            
+        messageText = ""
+    }
+    
+    func viewMessage(chatMessage: ChatMessage) -> some View{
+        HStack{
+            
+            if chatMessage.sender == .me {Spacer()}
+            Text(chatMessage.content)
+//                .foregroundColor(chatMessage.sender == .me ? .white : .black)
+//                .background(chatMessage.sender == .me ? .blue : .gray.opacity(0.1))
+//                .padding()
+                .buttonBorderShape(.roundedRectangle)
+                //.border(Color.black) // Adds a rectangular border around the text.
+                .padding()
+                .foregroundColor(chatMessage.sender == .me ? .white : .black)
+                .background(chatMessage.sender == .me ? Color.blue : .gray)
+                .cornerRadius(15)
+                .padding(.horizontal,14)
+            if chatMessage.sender == .gpt {Spacer()}
+            
+            
         }
     }
-    func sendMessage(message: String) {
-        // This should append the message to the messages array
-        // Should clear the messageText variable
-        // should send the message to the rafiki response func and get a message back that will be displayed on the screen.
-        
-        withAnimation{
-            messages.append("USER" + message)
-            self.messageText = ""
-        }
-        // Dispatch queues SwiftUI
-        // One second delay.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-            withAnimation{
-                messages.append(jibuLaRafiki(message: message)) // How is it we can access this file when it's declared in another file.
-                
-            }
-        }
-    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+struct ChatMessage : Hashable{
+    let id :String
+    let content: String
+    let dateCreated: Date
+    let sender: MessageSender
+}
+
+enum MessageSender{
+    // How are these used, what are the rules and properties?
+    case gpt
+    case me
+}
+extension ChatMessage{
+    // How are these used, what are the rules and properties?
+    static let initialMessage: [ChatMessage] = [ChatMessage(id: UUID().uuidString, content: "Welcome to RafikiAI! How may I assist you?", dateCreated: Date(), sender: .gpt)]
+    
 }

@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C654D0F329EBD1DB008AB0C4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C654D0F229EBD1DB008AB0C4 /* Alamofire */; };
 		C6ABDE4B29E512BB008EB68B /* RafikiAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABDE4A29E512BB008EB68B /* RafikiAIApp.swift */; };
 		C6ABDE4D29E512BB008EB68B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABDE4C29E512BB008EB68B /* ContentView.swift */; };
 		C6ABDE4F29E512BD008EB68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6ABDE4E29E512BD008EB68B /* Assets.xcassets */; };
 		C6ABDE5229E512BD008EB68B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6ABDE5129E512BD008EB68B /* Preview Assets.xcassets */; };
 		C6ABDE5929E545A4008EB68B /* RafikiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABDE5829E545A4008EB68B /* RafikiResponse.swift */; };
+		C6ABDE5B29EB00FA008EB68B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABDE5A29EB00FA008EB68B /* Constants.swift */; };
+		C6ABDE5D29EB0150008EB68B /* OpenAI service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABDE5C29EB014F008EB68B /* OpenAI service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,8 @@
 		C6ABDE4E29E512BD008EB68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6ABDE5129E512BD008EB68B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C6ABDE5829E545A4008EB68B /* RafikiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RafikiResponse.swift; sourceTree = "<group>"; };
+		C6ABDE5A29EB00FA008EB68B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C6ABDE5C29EB014F008EB68B /* OpenAI service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenAI service.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,15 +33,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C654D0F329EBD1DB008AB0C4 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C654D0EE29EBD057008AB0C4 /* ChatGPTTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChatGPTTests;
+			sourceTree = "<group>";
+		};
+		C654D0EF29EBD06B008AB0C4 /* ChatGPTUITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChatGPTUITests;
+			sourceTree = "<group>";
+		};
+		C654D0F029EBD07D008AB0C4 /* ChatGPTLaunchTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChatGPTLaunchTests;
+			sourceTree = "<group>";
+		};
 		C6ABDE3E29E512BB008EB68B = {
 			isa = PBXGroup;
 			children = (
+				C654D0F029EBD07D008AB0C4 /* ChatGPTLaunchTests */,
+				C654D0EF29EBD06B008AB0C4 /* ChatGPTUITests */,
+				C654D0EE29EBD057008AB0C4 /* ChatGPTTests */,
 				C6ABDE4929E512BB008EB68B /* RafikiAI */,
 				C6ABDE4829E512BB008EB68B /* Products */,
 			);
@@ -58,6 +88,8 @@
 				C6ABDE4C29E512BB008EB68B /* ContentView.swift */,
 				C6ABDE4E29E512BD008EB68B /* Assets.xcassets */,
 				C6ABDE5029E512BD008EB68B /* Preview Content */,
+				C6ABDE5A29EB00FA008EB68B /* Constants.swift */,
+				C6ABDE5C29EB014F008EB68B /* OpenAI service.swift */,
 			);
 			path = RafikiAI;
 			sourceTree = "<group>";
@@ -86,6 +118,9 @@
 			dependencies = (
 			);
 			name = RafikiAI;
+			packageProductDependencies = (
+				C654D0F229EBD1DB008AB0C4 /* Alamofire */,
+			);
 			productName = RafikiAI;
 			productReference = C6ABDE4729E512BB008EB68B /* RafikiAI.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +149,9 @@
 				Base,
 			);
 			mainGroup = C6ABDE3E29E512BB008EB68B;
+			packageReferences = (
+				C654D0F129EBD1DB008AB0C4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = C6ABDE4829E512BB008EB68B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,6 +181,8 @@
 				C6ABDE4D29E512BB008EB68B /* ContentView.swift in Sources */,
 				C6ABDE5929E545A4008EB68B /* RafikiResponse.swift in Sources */,
 				C6ABDE4B29E512BB008EB68B /* RafikiAIApp.swift in Sources */,
+				C6ABDE5D29EB0150008EB68B /* OpenAI service.swift in Sources */,
+				C6ABDE5B29EB00FA008EB68B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +383,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C654D0F129EBD1DB008AB0C4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C654D0F229EBD1DB008AB0C4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C654D0F129EBD1DB008AB0C4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C6ABDE3F29E512BB008EB68B /* Project object */;
 }
