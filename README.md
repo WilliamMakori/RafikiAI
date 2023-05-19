@@ -22,7 +22,7 @@ RafikiAI is a powerful iOS app created using Swift and SwiftUI. It transforms ho
 ![IMG_0276](https://github.com/WilliamMakori/RafikiAI/assets/68826430/fb92a96f-4e5a-471c-8e0a-49a5388dbc11)
 
 **How to Use:**
-1. Open the RafikiAI app on your iPhone or iPad.
+1. Open the RafikiAI app on your iPhone after downloading it from the playstore.
 2. Type your questions, prompts, or details about what you need.
 3. Start chatting with RafikiAI. It will respond to you like a knowledgeable friend.
 4. Explore different features. Get personalized workout and meal plans, travel recommendations, create inspiring sermons, and write professional documents.
