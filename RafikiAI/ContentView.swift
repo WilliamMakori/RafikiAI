@@ -115,6 +115,7 @@ enum MessageSender{
     case gpt
     case me
 }
+
 extension ChatMessage{
     // How are these used, what are the rules and properties?
     static let initialMessage: [ChatMessage] = [ChatMessage(id: UUID().uuidString, content: "Welcome to RafikiAI! How may I assist you?", dateCreated: Date(), sender: .gpt)]

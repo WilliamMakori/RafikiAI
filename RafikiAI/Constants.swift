@@ -8,7 +8,5 @@
 import Foundation
 
 enum Constants {
-    static let openAPIKey = "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"
+    static let openAPIKey = AppConfiguration.openaiAPIKey
 }
-// there are better ways to store API keys, but constants works too
-
